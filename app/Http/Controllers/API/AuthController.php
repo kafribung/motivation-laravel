@@ -16,7 +16,7 @@ class AuthController extends Controller
         ]);
 
         // Validation and login
-        if (!auth()->attempt($data)) {
+        if (! auth()->attempt($data)) {
             return response([
                 'status' => false,
                 'eerror' => 'ERR_INVALID_CREDS',

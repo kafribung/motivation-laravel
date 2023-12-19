@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
+
         \App\Models\User::factory()->createMany([
             [
                 'name' => 'Super Admin',
@@ -27,5 +28,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleSeeder::class,
         ]);
+
+        \App\Models\Motivation::factory(20)->create();
     }
 }

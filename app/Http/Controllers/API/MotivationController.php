@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\MotivationRequest;
 use App\Http\Resources\API\MotivationResource;
 use App\Models\Motivation;
 use Illuminate\Http\Request;
@@ -24,24 +25,24 @@ class MotivationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    // public function store(MotivationRequest $request)
-    // {
-    //     $data = $request->validated();
-    //     $data['user_id'] = auth()->id();
-    //     $data['event_at'] = now()->timestamp;
+    public function store(MotivationRequest $request)
+    {
+        $data = $request->validated();
+        $data['user_id'] = auth()->id();
+        $data['slug'] = str($request->name)->slug();
 
-    //     $Motivation = Motivation::create($data);
+        $motivation = Motivation::create($data);
 
-    //     return MotivationSingleResource::make($Motivation);
-    // }
+        return MotivationResource::make($motivation);
+    }
 
     /**
      * Display the specified resource.
      */
-    // public function show(Motivation $Motivation)
-    // {
-    //     return MotivationBlockResource::make($Motivation);
-    // }
+    public function show(Motivation $motivation)
+    {
+        return MotivationResource::make($motivation);
+    }
 
     /**
      * Update the specified resource in storage.

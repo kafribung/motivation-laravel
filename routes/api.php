@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\MotivationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,12 +20,14 @@ use Illuminate\Support\Facades\Route;
 //     return UserResource::make($request->user());
 // });
 
+Route::get('motivation', [MotivationController::class, 'index'])->name('motivation.index');
+
 Route::middleware('auth:api')->group(function () {
     // Authentication: Logout
     Route::post('logout', [AuthController::class, 'logout']);
 
     // Reminder
-    // Route::apiResource('reminders', ReminderController::class);
+    Route::apiResource('motivation', MotivationController::class)->except('index');
 });
 
 // Route::post('register', [AuthController::class, 'register']);

@@ -18,6 +18,11 @@ class Motivation extends Model
         'deleted_at',
     ];
 
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

@@ -47,21 +47,26 @@ class MotivationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    // public function update(Motivation $Motivation, MotivationRequest $request)
-    // {
-    //     $data = $request->validated();
-    //     $Motivation->update($data);
+    public function update(Motivation $motivation, MotivationRequest $request)
+    {
+        $data = $request->validated();
+        $data['slug'] = str($request->name)->slug();
 
-    //     return MotivationSingleResource::make($Motivation);
-    // }
+        $motivation->update($data);
+
+        return MotivationResource::make($motivation);
+    }
 
     /**
      * Remove the specified resource from storage.
      */
-    // public function destroy(Motivation $Motivation)
-    // {
-    //     $Motivation->delete();
+    public function destroy(Motivation $Motivation)
+    {
+        $Motivation->delete();
 
-    //     return response(['ok' => true]);
-    // }
+        return response([
+            'status' => true,
+            'message' => 'Motivation success deleted'
+        ]);
+    }
 }
